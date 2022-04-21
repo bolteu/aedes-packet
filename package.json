@@ -58,7 +58,7 @@
     "markdownlint-cli": "^0.28.1",
     "pre-commit": "^1.2.2",
     "snazzy": "^9.0.0",
-    "standard": "^16.0.3",
+    "standard": "^17.0.0",
     "tap": "^14.11.0"
   }
 }
