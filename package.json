@@ -47,7 +47,7 @@
     "node": ">=10"
   },
   "dependencies": {
-    "mqtt-packet": "^7.0.0"
+    "mqtt-packet": "^8.1.1"
   },
   "devDependencies": {
     "@types/node": "^16.0.0",
