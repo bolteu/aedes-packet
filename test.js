@@ -9,7 +9,7 @@ test('Packet defaults - PUBLISH, QoS 0', function (t) {
   t.equal(instance.brokerId, undefined)
   t.equal(instance.brokerCounter, 0)
   t.equal(instance.topic, undefined)
-  t.deepEqual(instance.payload, Buffer.alloc(0))
+  t.same(instance.payload, Buffer.alloc(0))
   t.equal(instance.qos, 0)
   t.equal(instance.dup, false)
   t.equal(instance.retain, false)
@@ -23,7 +23,7 @@ test('Packet defaults - PUBREL, QoS 0', function (t) {
   t.equal(instance.brokerId, undefined)
   t.equal(instance.brokerCounter, 0)
   t.equal(instance.topic, undefined)
-  t.deepEqual(instance.payload, Buffer.alloc(0))
+  t.same(instance.payload, Buffer.alloc(0))
   t.equal(instance.qos, 0)
   t.equal(instance.dup, false)
   t.equal(instance.retain, false)
@@ -38,7 +38,7 @@ test('Packet defaults - PUBLISH, QoS 1', function (t) {
   t.equal(instance.brokerId, undefined)
   t.equal(instance.brokerCounter, 0)
   t.equal(instance.topic, undefined)
-  t.deepEqual(instance.payload, Buffer.alloc(0))
+  t.same(instance.payload, Buffer.alloc(0))
   t.equal(instance.qos, 1)
   t.equal(instance.dup, false)
   t.equal(instance.retain, false)
@@ -53,7 +53,7 @@ test('Packet defaults - PUBLISH, dup=true', function (t) {
   t.equal(instance.brokerId, undefined)
   t.equal(instance.brokerCounter, 0)
   t.equal(instance.topic, undefined)
-  t.deepEqual(instance.payload, Buffer.alloc(0))
+  t.same(instance.payload, Buffer.alloc(0))
   t.equal(instance.qos, 0)
   t.equal(instance.dup, true)
   t.equal(instance.retain, false)
@@ -88,7 +88,7 @@ test('Packet copies over most data', function (t) {
   t.ok(Object.prototype.hasOwnProperty.call(instance, 'messageId'))
   t.equal(instance.messageId, undefined)
   delete instance.messageId
-  t.deepEqual(instance, expected)
+  t.same(instance, expected)
   t.end()
 })
 
@@ -155,6 +155,47 @@ test('Packet fills in broker data', function (t) {
   t.ok(Object.prototype.hasOwnProperty.call(instance, 'messageId'))
   t.equal(instance.messageId, undefined)
   delete instance.messageId
-  t.deepEqual(instance, expected)
+  t.same(instance, expected)
+  t.end()
+})
+
+test('Packet copies clientId and nl if they exist', function (t) {
+  const original = {
+    clientId: 'client-id',
+    nl: false
+  }
+  const instance = new Packet(original)
+  const expected = {
+    clientId: 'client-id',
+    nl: false,
+    cmd: 'publish',
+    brokerId: undefined,
+    brokerCounter: 0,
+    topic: undefined,
+    payload: Buffer.alloc(0),
+    qos: 0,
+    dup: false,
+    retain: false
+  }
+
+  t.same(instance, expected)
+  t.end()
+})
+
+test('Packet does not copy clientId and nl if they dont exist', function (t) {
+  const original = {}
+  const instance = new Packet(original)
+  const expected = {
+    cmd: 'publish',
+    brokerId: undefined,
+    brokerCounter: 0,
+    topic: undefined,
+    payload: Buffer.alloc(0),
+    qos: 0,
+    dup: false,
+    retain: false
+  }
+
+  t.same(instance, expected)
   t.end()
 })
