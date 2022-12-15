@@ -1,6 +1,6 @@
 {
   "name": "aedes-packet",
-  "version": "3.0.1",
+  "version": "3.0.100",
   "description": "Basic data structure for packets in Aedes ",
   "main": "packet.js",
   "types": "packet.d.ts",
